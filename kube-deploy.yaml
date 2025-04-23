@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: python-pod
+  labels:
+    app: a
+spec:
+  containers:
+    - name: python-container
+      image: adithyan1/a-python-app:latest # ✅ must match Docker Hub
+      ports:
+        - containerPort: 9090
