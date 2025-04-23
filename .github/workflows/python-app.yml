@@ -1,4 +1,6 @@
-name: Python CI for Folder A
+# GitHub Actions CI for Python app with linting and testing
+
+name: Python application
 
 on:
   push:
@@ -11,6 +13,7 @@ permissions:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -26,12 +29,14 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Lint with flake8
       run: |
-        flake8 A/ --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 A/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        # Lint all .py files in the root directory
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Run tests with pytest
       run: |
-        pytest A/test_a.py
+        pytest
